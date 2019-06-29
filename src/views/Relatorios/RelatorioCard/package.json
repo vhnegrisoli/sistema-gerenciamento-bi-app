@@ -1,0 +1,6 @@
+{
+    "name": "RelatorioCard",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./RelatorioCard.js"
+}

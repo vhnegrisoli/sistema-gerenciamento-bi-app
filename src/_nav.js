@@ -1,8 +1,8 @@
 export default {
   items: [
     {
-      name: 'Dashboard',
-      url: '/dashboard',
+      name: 'Relatórios',
+      url: '/relatorios',
       icon: 'icon-speedometer',
       badge: {
         variant: 'info',
@@ -257,7 +257,7 @@ export default {
     },
     {
       name: 'Disabled',
-      url: '/dashboard',
+      url: '/relatorios',
       icon: 'icon-ban',
       attributes: { disabled: true },
     },
