@@ -1,13 +1,17 @@
 export default {
   items: [
     {
-      name: 'Relatórios',
-      url: '/relatorios',
-      icon: 'icon-speedometer',
+      name: "Relatórios",
+      url: "/relatorios",
+      icon: "icon-speedometer",
       badge: {
-        variant: 'info',
-        text: 'NEW',
+        variant: "info"
       }
+    },
+    {
+      name: "Sair",
+      url: "/login",
+      icon: "icon-logout"
     }
-  ],
+  ]
 };
