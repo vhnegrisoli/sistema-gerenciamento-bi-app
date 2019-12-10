@@ -6,34 +6,17 @@ import PropTypes from "prop-types";
 import { AppNavbarBrand, AppSidebarToggler } from "@coreui/react";
 import logo from "../../assets/img/brand/logo.svg";
 import sygnet from "../../assets/img/brand/sygnet.svg";
-import { BACK_END, USERS, AUTH_USER } from "../../utils/BackEndUrl";
 import cookie from "react-cookies";
-import axios from "axios";
 
 const propTypes = {
   children: PropTypes.node
 };
 
 const defaultProps = {};
-let name = "";
-let permissao = "";
 
 class DefaultHeader extends Component {
-  async getAuthUser() {
-    await axios
-      .get(BACK_END + USERS + AUTH_USER, {
-        headers: {
-          Authorization: `Bearer ${cookie.load("token")}`
-        }
-      })
-      .then(res => {
-        name = res.data.nome;
-        permissao = res.data.permissao;
-      });
-  }
 
   render() {
-    this.getAuthUser();
     const { children, ...attributes } = this.props;
 
     return (
@@ -48,12 +31,8 @@ class DefaultHeader extends Component {
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
             <Link to="/" className="nav-link">
-              Usuário: {name} |{" "}
-              {permissao === "USER"
-                ? "Usuário"
-                : permissao === "ADMIN"
-                ? "Administrador"
-                : "Super Administrador"}
+              Usuário: {cookie.load('user')} |{" "}
+              {cookie.load('role_description')}
             </Link>
           </NavItem>
         </Nav>

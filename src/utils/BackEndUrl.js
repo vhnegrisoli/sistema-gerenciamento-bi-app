@@ -1,5 +1,5 @@
-export const BACK_END = "http://localhost:8080";
-// export const BACK_END = "https://dge-bi-api.herokuapp.com";
+//export const BACK_END = "http://localhost:8080";
+export const BACK_END = "https://dge-bi-api.herokuapp.com";
 export const LOGIN_API = "/oauth/token";
 export const USERS = "/api/usuarios";
 export const AUTH_USER = "/usuario-autenticado";

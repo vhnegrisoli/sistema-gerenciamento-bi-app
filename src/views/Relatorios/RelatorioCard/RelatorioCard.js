@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Row } from "reactstrap";
+import { Button, Col, Row } from "reactstrap";
 import axios from "axios";
 import {
   BACK_END,
@@ -9,6 +9,8 @@ import {
   CHECK_SESSION
 } from "../../../utils/BackEndUrl";
 import cookie from "react-cookies";
+import Iframe from 'react-iframe'
+import ReactLoading from 'react-loading';
 
 class Cards extends Component {
   constructor(props) {
@@ -98,25 +100,32 @@ class Cards extends Component {
 
   toggleFade() {}
 
+  toggleFullScreen() {
+    window.open(this.state.relatorios[0].link, '_blank');
+  }
+
   render() {
     return (
       <div className="animated fadeIn">
+        <Button onClick={() => this.toggleFullScreen()}>
+          Fullscreen
+        </Button>
+        <br/>
+        {this.state.isLoading ? (
+          <ReactLoading type={'spinningBubbles'} color={'blue'} height={100} width={50} />
+        ) : (
         <Row>
-          {this.state.relatorios.map(relatorio => (
             <Col xs="12">
-              <iframe
-                class="resp-iframe"
-                title={this.state.relatorios[0].titulo}
-                src={this.state.relatorios[0].link}
-                gesture="media"
-                allow="encrypted-media"
-                width="100%"
-                height="750"
-                allowfullscreen
+              <Iframe url={this.state.relatorios[0].link}
+              width="100%"
+              id={this.state.relatorios[0].titulo}
+              className="myClassname"
+              height="400%"
+              allowFullScreen
               />
-            </Col>
-          ))}
+          </Col>
         </Row>
+        )}
       </div>
     );
   }
