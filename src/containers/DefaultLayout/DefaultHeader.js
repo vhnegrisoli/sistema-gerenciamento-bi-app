@@ -15,10 +15,7 @@ const propTypes = {
 const defaultProps = {};
 
 class DefaultHeader extends Component {
-
   render() {
-    const { children, ...attributes } = this.props;
-
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
@@ -31,8 +28,7 @@ class DefaultHeader extends Component {
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
             <Link to="/" className="nav-link">
-              Usuário: {cookie.load('user')} |{" "}
-              {cookie.load('role_description')}
+              Usuário: {cookie.load("user")} | {cookie.load("role_description")}
             </Link>
           </NavItem>
         </Nav>
