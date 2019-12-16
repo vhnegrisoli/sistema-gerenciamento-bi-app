@@ -23,6 +23,7 @@ import {
 import axios from "axios";
 import cookie from "react-cookies";
 import ReactLoading from "react-loading";
+import logo from "../../../assets/img/brand/logo.png";
 
 const APP_CLIENT = "dge_bi-client";
 const APP_SECRET = "dge_bi-secret";
@@ -94,14 +95,12 @@ class Login extends Component {
       .then(res => {
         this.setState({
           isSuccess: true,
-          isLoading: false,
           token: res.data.access_token
         });
       })
       .catch(err => {
         this.setState({
           isSuccess: false,
-          isLoading: false,
           isError: true
         });
       });
@@ -120,7 +119,7 @@ class Login extends Component {
         }
       })
       .then(res => {
-        this.setState({ authUser: res.data });
+        this.setState({ isLoading: false, authUser: res.data });
       });
   }
 
@@ -138,12 +137,24 @@ class Login extends Component {
       <div className="app flex-row align-items-center">
         <Container>
           <Row className="justify-content-center">
-            <Col md="8">
+            <Col md="6">
+              <img
+                src={logo}
+                alt="Não foi possível carregar a imagem."
+                width="100%"
+                height="100%"
+                align="center"
+              />
+            </Col>
+
+            <Col md="12"> </Col>
+
+            <Col md="6">
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
                     <Form onSubmit={e => this.onSubmit(e)}>
-                      <h1>Login</h1>
+                      <h2>Login</h2>
                       <p className="text-muted">Entre em sua conta</p>
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">

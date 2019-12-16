@@ -4,8 +4,7 @@ import { Nav, NavItem } from "reactstrap";
 import PropTypes from "prop-types";
 
 import { AppNavbarBrand, AppSidebarToggler } from "@coreui/react";
-import logo from "../../assets/img/brand/logo.svg";
-import sygnet from "../../assets/img/brand/sygnet.svg";
+import sygnet from "../../assets/img/brand/sygnet.png";
 import cookie from "react-cookies";
 
 const propTypes = {
@@ -20,8 +19,14 @@ class DefaultHeader extends Component {
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
         <AppNavbarBrand
-          full={{ src: logo, width: 89, height: 25, alt: "CoreUI Logo" }}
-          minimized={{ src: sygnet, width: 30, height: 30, alt: "CoreUI Logo" }}
+          full={{
+            src: sygnet,
+            width: 90,
+            height: 50,
+            align: "left",
+            alt: "DGE Logo"
+          }}
+          minimized={{ src: sygnet, width: 60, height: 30, alt: "DGE Logo" }}
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
 
