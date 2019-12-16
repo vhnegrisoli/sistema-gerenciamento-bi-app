@@ -6,14 +6,32 @@ import PropTypes from "prop-types";
 import { AppNavbarBrand, AppSidebarToggler } from "@coreui/react";
 import sygnet from "../../assets/img/brand/sygnet.png";
 import cookie from "react-cookies";
-
+import moment from "moment";
 const propTypes = {
   children: PropTypes.node
 };
-
+const DATE_TIME = "DD/MM/YY HH:mm:ss";
 const defaultProps = {};
 
 class DefaultHeader extends Component {
+  state = {
+    now: moment().format(DATE_TIME)
+  };
+
+  componentWillMount() {
+    this.startTime();
+  }
+
+  getTimeNow = () => moment().format(DATE_TIME);
+
+  startTime = () => {
+    this.timer = setInterval(() => {
+      this.setState({
+        now: this.getTimeNow()
+      });
+    }, 1000);
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -33,12 +51,12 @@ class DefaultHeader extends Component {
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
             <Link to="/" className="nav-link">
-              Usuário: {cookie.load("user")} | {cookie.load("role_description")}
+              Usuário: {cookie.load("user")} | {cookie.load("role_description")}{" "}
+              | {this.state.now}
             </Link>
           </NavItem>
         </Nav>
         <Nav className="ml-auto" navbar />
-        {/*<AppAsideToggler className="d-lg-none" mobile />*/}
       </React.Fragment>
     );
   }
