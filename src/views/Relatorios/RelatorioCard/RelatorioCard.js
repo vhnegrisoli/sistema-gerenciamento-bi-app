@@ -58,7 +58,6 @@ class Cards extends Component {
       refreshErrorMessage: "",
       modalResponse: false,
       modalResponseMessage: false,
-      refreshResponse: "",
       refreshStatus: 200
     };
     this.getToken();
@@ -150,7 +149,7 @@ class Cards extends Component {
       });
     }
     if (
-      dataAtual.getHours() < HORARIO_COMERCIAL_INICIO &&
+      dataAtual.getHours() < HORARIO_COMERCIAL_INICIO ||
       dataAtual.getHours() > HORARIO_COMERCIAL_FIM
     ) {
       this.setState({
@@ -175,17 +174,25 @@ class Cards extends Component {
   }
 
   async atualizarDados() {
+    this.setState({ refreshModal: false });
     await axios
-      .put(BACK_END + RELATORIOS_URI + REFRESH_REPORT, {
-        headers: {
-          Authorization: `Bearer ${cookie.load("token")}`
+      .put(
+        BACK_END +
+          RELATORIOS_URI +
+          "/" +
+          this.state.relatorios[0].id +
+          REFRESH_REPORT,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${cookie.load("token")}`
+          }
         }
-      })
+      )
       .then(res => {
         this.setState({
           refreshStatus: OK,
-          modalResponseMessage:
-            "Os dados foram atualizados, aguarde até que sejam disponibilizados na plataforma"
+          modalResponseMessage: res.data
         });
       })
       .catch(err => {
@@ -218,7 +225,7 @@ class Cards extends Component {
           <Modal
             className={this.props.className}
             isOpen={this.state.refreshModal}
-            toggle={() => this.closeRefreshModal()}
+            toggle={() => this.closeModalResponse()}
           >
             {this.state.refreshError ? (
               <div>
@@ -274,8 +281,8 @@ class Cards extends Component {
           </Modal>
           <Modal
             className={this.props.className}
-            isOpen={this.state.refreshResponse}
-            toggle={() => this.closeRefreshModal()}
+            isOpen={this.state.modalResponse}
+            toggle={() => this.closeModalResponse()}
           >
             <ModalHeader>Resultado da Atualização</ModalHeader>
             <ModalBody>
