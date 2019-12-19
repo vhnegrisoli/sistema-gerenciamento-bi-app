@@ -22,6 +22,7 @@ import cookie from "react-cookies";
 import Iframe from "react-iframe";
 import ReactLoading from "react-loading";
 import "font-awesome/css/font-awesome.min.css";
+import "./iframe.css";
 
 const style = {
   color: "red",
@@ -306,14 +307,21 @@ class Cards extends Component {
         ) : (
           <Row className="mt-4">
             <Col xs="12">
-              <Iframe
-                url={this.state.relatorios[0].link}
-                width="100%"
-                id={this.state.relatorios[0].titulo}
-                className="myClassname"
-                height="400%"
-                allowFullScreen
-              />
+              <div className="wrapper">
+                <div>
+                  <Iframe
+                    frameborder="0"
+                    height="465px"
+                    width="570px"
+                    scrolling="no"
+                    url={this.state.relatorios[0].link}
+                    id={this.state.relatorios[0].titulo}
+                    title={this.state.relatorios[0].titulo}
+                    className="myClassname"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
             </Col>
           </Row>
         )}
