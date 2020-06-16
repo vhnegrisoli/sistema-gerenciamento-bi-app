@@ -12,13 +12,13 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  Row
+  Row,
 } from "reactstrap";
 import {
   BACK_END,
   LOGIN_API,
   USERS,
-  AUTH_USER
+  AUTH_USER,
 } from "../../../utils/BackEndUrl";
 import axios from "axios";
 import cookie from "react-cookies";
@@ -40,7 +40,7 @@ class Login extends Component {
       usuario: "",
       senha: "",
       token: "",
-      authUser: {}
+      authUser: {},
     };
     this.removeCookies();
   }
@@ -54,9 +54,9 @@ class Login extends Component {
     cookie.remove("token");
   }
 
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -65,7 +65,7 @@ class Login extends Component {
     this.setState({
       isLoading: true,
       isSuccess: false,
-      isError: false
+      isError: false,
     });
     this.getAuthToken();
   }
@@ -89,19 +89,20 @@ class Login extends Component {
       .post(url, formLogin, {
         Headers: {
           Authorization: "Basic " + APP_BASE_64,
-          Content_Type: APP_CONTENT_TYPE
-        }
+          Content_Type: APP_CONTENT_TYPE,
+        },
       })
-      .then(res => {
+      .then((res) => {
         this.setState({
           isSuccess: true,
-          token: res.data.access_token
+          token: res.data.access_token,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({
+          isLoading: false,
           isSuccess: false,
-          isError: true
+          isError: true,
         });
       });
     if (this.state.isSuccess) {
@@ -115,10 +116,10 @@ class Login extends Component {
     await axios
       .get(BACK_END + USERS + AUTH_USER, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         this.setState({ isLoading: false, authUser: res.data });
       });
   }
@@ -153,7 +154,7 @@ class Login extends Component {
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
-                    <Form onSubmit={e => this.onSubmit(e)}>
+                    <Form onSubmit={(e) => this.onSubmit(e)}>
                       <h2>Login</h2>
                       <p className="text-muted">Entre em sua conta</p>
                       <InputGroup className="mb-3">
@@ -167,7 +168,7 @@ class Login extends Component {
                           name="usuario"
                           placeholder="Usuário"
                           autoComplete="usuario"
-                          onChange={e => this.onChange(e)}
+                          onChange={(e) => this.onChange(e)}
                         />
                       </InputGroup>
                       <InputGroup className="mb-4">
@@ -181,7 +182,7 @@ class Login extends Component {
                           name="senha"
                           placeholder="Senha"
                           autoComplete="senha"
-                          onChange={e => this.onChange(e)}
+                          onChange={(e) => this.onChange(e)}
                         />
                       </InputGroup>
                       <Row>
@@ -198,11 +199,6 @@ class Login extends Component {
                               Entrar
                             </Button>
                           )}
-                          {this.state.isError && (
-                            <Alert color="danger">
-                              Usuário ou senha inválidos.
-                            </Alert>
-                          )}
                         </Col>
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0">
@@ -210,6 +206,16 @@ class Login extends Component {
                           </Button>
                         </Col>
                       </Row>
+                      {this.state.isError && (
+                        <Row>
+                          <Col>
+                            <br />
+                            <Alert color="danger" className="px-4">
+                              Usuário ou senha inválidos.
+                            </Alert>
+                          </Col>
+                        </Row>
+                      )}
                     </Form>
                   </CardBody>
                 </Card>
